@@ -8,7 +8,10 @@ export const links:NavLinks[] = [
         label: 'Home', href: '/'
     },
     {
-        label: 'Favorites', href: '/favorites'
+        label: 'Profile', href: '/profile'
+    },
+    {
+        label: 'Favorite', href: '/favorite'
     },
     {
         label: 'Camp', href: '/camp'

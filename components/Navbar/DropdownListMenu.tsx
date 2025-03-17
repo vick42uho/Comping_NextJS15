@@ -12,6 +12,8 @@ import { Button } from '../ui/button';
 import UserIcon from './UserIcon';
 import Link from 'next/link';
 import { links } from '@/utils/links';
+import SignOutLinks from './SignOutLinks';
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
 
 
 
@@ -31,18 +33,40 @@ const DropdownListMenu = () => {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
 
-                {links.map((link, i) => (
-                    <DropdownMenuItem key={i}>
-                        <Link
-                            href={link.href}
-                            className="text-sm"
-                        >
-                            {link.label}
-                        </Link>
+                {/* ออกจากระบบแล้ว */}
+                <SignedOut>
+                    <DropdownMenuItem>
+                        <SignInButton mode='modal'>
+                            <button>Login</button>
+                        </SignInButton>
                     </DropdownMenuItem>
-                ))}
-              
-                
+                    <DropdownMenuItem>
+                        <SignUpButton mode='modal'>
+                            <button>Register</button>
+                        </SignUpButton>
+                    </DropdownMenuItem>
+                </SignedOut>
+
+                {/* เข้าสู่ระบบแล้ว */}
+                <SignedIn>
+                    {links.map((link, i) => {
+                        return (
+                            <DropdownMenuItem key={i}>
+                                <Link href={link.href}>
+                                    {link.label}
+                                </Link>
+                            </DropdownMenuItem>
+                        );
+                    })}
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem>
+
+                        <SignOutLinks />
+                    </DropdownMenuItem>
+
+                </SignedIn>
             </DropdownMenuContent>
         </DropdownMenu>
 
